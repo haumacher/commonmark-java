@@ -15,6 +15,16 @@ import org.commonmark.parser.block.ParserState;
 public class TracBlockQuoteParser extends AbstractBlockParser {
 
     private final BlockQuote block = new BlockQuote();
+    private int _blockColumn;
+
+    /**
+     * Creates a {@link TracBlockQuoteParser}.
+     *
+     * @param blockColumn The indentation column of the currently parsed block.
+     */
+    public TracBlockQuoteParser(int blockColumn) {
+        _blockColumn = blockColumn;
+    }
 
     @Override
     public boolean isContainer() {
@@ -33,26 +43,24 @@ public class TracBlockQuoteParser extends AbstractBlockParser {
 
     @Override
     public BlockContinue tryContinue(ParserState state) {
-        int nextNonSpace = state.getNextNonSpaceIndex();
-        if (isMarker(state, nextNonSpace)) {
-            int newColumn = state.getColumn() + state.getIndent();
-            return BlockContinue.atColumn(newColumn);
+        if (isMarker(state) && state.getColumn() + state.getIndent() >= _blockColumn) {
+            return BlockContinue.atColumn(_blockColumn);
         } else {
             return BlockContinue.none();
         }
     }
 
-    private static boolean isMarker(ParserState state, int index) {
+    static boolean isMarker(ParserState state) {
+        int index = state.getNextNonSpaceIndex();
         CharSequence line = state.getLine().getContent();
         return state.getIndent() > 1 && index < line.length();
     }
 
     public static class Factory extends AbstractBlockParserFactory {
         public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
-            int nextNonSpace = state.getNextNonSpaceIndex();
-            if (isMarker(state, nextNonSpace)) {
+            if (isMarker(state)) {
                 int newColumn = state.getColumn() + state.getIndent();
-                return BlockStart.of(new TracBlockQuoteParser()).atColumn(newColumn);
+                return BlockStart.of(new TracBlockQuoteParser(newColumn)).atColumn(newColumn);
             } else {
                 return BlockStart.none();
             }

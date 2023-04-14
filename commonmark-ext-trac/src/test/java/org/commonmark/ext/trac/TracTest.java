@@ -154,18 +154,21 @@ public class TracTest extends RenderingTestCase {
     @Test
     public void testBlockquotesNested() {
         assertRendering(
-                "  if there's some leading\n" +
-                        "  space the text is quoted" +
-                        "    more indentation makes" +
-                        "    nested block" +
-                        "  original level",
+            "  if there's some leading\n" +
+            "  space the text is quoted\n" +
+            "    more indentation makes\n" +
+            "    nested block\n" +
+            "  original level\n",
 
-                "<blockquote>\n"
-                        + "<p>"
-                        + "if there's some leading\n"
-                        + "space the text is quoted"
-                        + "</p>\n"
-                        + "</blockquote>\n");
+            "<blockquote>\n"
+            + "<p>if there's some leading\n"
+            + "space the text is quoted</p>\n"
+            + "<blockquote>\n"
+            + "<p>more indentation makes\n"
+            + "nested block</p>\n"
+            + "</blockquote>\n"
+            + "<p>original level</p>\n"
+            + "</blockquote>\n");
     }
 
     @Test
