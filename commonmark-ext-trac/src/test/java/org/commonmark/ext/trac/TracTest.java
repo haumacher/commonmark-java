@@ -65,7 +65,10 @@ public class TracTest extends RenderingTestCase {
 
     @Test
     public void testMonospaced() {
-        assertRendering("`monospaced (''other markup ignored'')`", "");
+        assertRendering(
+            "`monospaced (''other markup ignored'')`", 
+            "<p><code>monospaced (''other markup ignored'')</code></p>\n"
+        );
     }
 
     @Test
