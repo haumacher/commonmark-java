@@ -230,7 +230,7 @@ public class DocumentParser implements ParserState {
             findNextNonSpace();
 
             // this is a little performance optimization:
-            if (isBlank() || (indent < Parsing.CODE_BLOCK_INDENT && Parsing.isLetter(this.line.getContent(), nextNonSpace))) {
+            if (isBlank()) {
                 setNewIndex(nextNonSpace);
                 break;
             }
