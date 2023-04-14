@@ -127,14 +127,14 @@ public class TracTest extends RenderingTestCase {
     @Test
     public void testPreformatted() {
         assertRendering(
-                "{{{\n"
-                        + "multiple lines, ''no wiki'',\n"
-                        + "      white space respected\n"
-                        + "}}}",
+            "{{{\n"
+            + "multiple lines, ''no wiki'',\n"
+            + "      white space respected\n"
+            + "}}}",
 
-                "<pre>multiple lines, ''no wiki'',\n"
-                        + "      white space respected\n"
-                        + "</pre>");
+            "<pre><code>multiple lines, ''no wiki'',\n"
+            + "      white space respected\n"
+            + "</code></pre>\n");
     }
 
     @Test
@@ -305,21 +305,23 @@ public class TracTest extends RenderingTestCase {
     @Test
     public void testProcessors() {
         assertRendering(
-                "{{{#!python\n"
-                        + "  hello = lambda: \"world\"\n"
-                        + "  }}}",
+            "{{{#!python\n"
+            + "  hello = lambda: \"world\"\n"
+            + "  }}}",
 
-                "");
+            "<pre><code class=\"language-python\">  hello = lambda: &quot;world&quot;\n"
+            + "</code></pre>\n"
+            + "");
     }
 
     @Test
     public void testComments() {
         assertRendering(
-                "{{{#!comment\n"
-                        + "Note to Editors: ...\n"
-                        + "}}}",
+            "{{{#!comment\n"
+            + "Note to Editors: ...\n"
+            + "}}}",
 
-                "");
+            "");
     }
 
     @Test
