@@ -276,7 +276,7 @@ public class DocumentParser implements ParserState {
         // appropriate block.
 
         // First check for a lazy paragraph continuation:
-        if (!startedNewBlock && !isBlank() &&
+        if (!startedNewBlock && unmatchedBlocks <= 1 && !isBlank() &&
                 getActiveBlockParser().canHaveLazyContinuationLines()) {
             openBlockParsers.get(openBlockParsers.size() - 1).sourceIndex = lastIndex;
             // lazy paragraph continuation
