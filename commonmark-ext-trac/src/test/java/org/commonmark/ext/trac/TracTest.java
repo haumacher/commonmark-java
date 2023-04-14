@@ -195,15 +195,15 @@ public class TracTest extends RenderingTestCase {
     @Test
     public void testCitationTrac() {
         assertRendering(
-                "> > ... (I said)\n"
-                        + ">   (he replied)",
+            "> > ... (I said)\n" +
+            "> (he replied)",
 
-                "<blockquote>\n"
-                        + "<blockquote>\n"
-                        + "<p>... (I said)</p>\n"
-                        + "</blockquote>\n"
-                        + "<p>(he replied)</p>\n"
-                        + "</blockquote>\n");
+            "<blockquote>\n"
+            + "<blockquote>\n"
+            + "<p>... (I said)</p>\n"
+            + "</blockquote>\n"
+            + "<p>(he replied)</p>\n"
+            + "</blockquote>\n");
     }
 
     @Test
